@@ -7,41 +7,40 @@
     <form method="POST" action="{% url 'register' %}">
       {% csrf_token %}
       <div class="form-group mb-3">
-        <label for="id_username">Username:</label>
-        {{ form.username }}
+        <label for="id_username">Username: <span class="text-danger">*</span></label>
+        {{ form.username}}
         {% if form.username.errors %}
-        <div style="color: red;">{{ form.username.errors }}</div>
+        <div class="text-danger">{{ form.username.errors }}</div>
         {% endif %}
       </div>
-      <div>
-        <label for="id_email">Email:</label>
-        {{ form.email }}
+      <div class="form-group mb-3">
+        <label for="id_email">Email: <span class="text-danger">*</span></label>
+        {{ form.email}}
         {% if form.email.errors %}
-        <div style="color: red;">{{ form.email.errors }}</div>
+        <div class="text-danger">{{ form.email.errors }}</div>
         {% endif %}
       </div>
-      <div>
-        <label for="id_password">Password:</label>
+      <div class="form-group mb-3">
+        <label for="id_password">Password: <span class="text-danger">*</span></label>
         {{ form.password }}
         {% if form.password.errors %}
-        <div style="color: red;">{{ form.password.errors }}</div>
+        <div class="text-danger">{{ form.password.errors }}</div>
         {% endif %}
       </div>
-      <div>
-        <label for="id_confirm_password">Confirm Password:</label>
+      <div class="form-group mb-3">
+        <label for="id_confirm_password">Confirm Password: <span class="text-danger">*</span></label>
         {{ form.confirm_password }}
         {% if form.confirm_password.errors %}
-        <div style="color: red;">{{ form.confirm_password.errors }}</div>
+        <div class="text-danger">{{ form.confirm_password.errors }}</div>
         {% endif %}
       </div>
-      <button type="submit">Sign Up</button>
+      <button type="submit" class="btn btn-primary btn-block w-100">Sign Up</button>
       <div class="text-center mt-3">
-        <a href="{% url 'login' %}" class="text-muted">Already have an account? Log in</a>
+        <a href="{% url 'login' %}" class="">Already have an account? Log in</a>
       </div>
     </form>
   </div>
 </div>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {

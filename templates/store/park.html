@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Create National Park</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Park Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="state">State:</label>
+      <input type="text" class="form-control" id="state" name="state" required>
+    </div>
+    <div class="form-group">
+      <label for="picture">Picture:</label>
+      <input type="file" class="form-control" id="picture" name="picture" required>
+    </div>
+    <div class="form-group">
+      <label for="established">Established Date:</label>
+      <input type="date" class="form-control" id="established" name="established" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Park</button>
+  </form>
+
+  <h2 class="mt-5">National Parks List</h2>
+  <ul class="list-group">
+    {% for park in parks %}
+    <li class="list-group-item">
+      <h5>{{ park.name }}</h5>
+      <p>State: {{ park.state }}</p>
+      <p>Established: {{ park.established }}</p>
+      <img src="{{ park.picture.url }}" alt="{{ park.name }}" style="width:100px;height:auto;">
+
+      <div class="mt-2">
+        <a href="{% url 'edit_park_view' park.id %}" class="btn btn-warning btn-sm">Edit</a>
+        <form action="{% url 'delete_park_view' park.id %}" method="POST" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
