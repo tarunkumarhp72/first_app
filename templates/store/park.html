@@ -1,31 +1,15 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<div class="container">
-  <h2>Create National Park</h2>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="name">Park Name:</label>
-      <input type="text" class="form-control" id="name" name="name" required>
-    </div>
-    <div class="form-group">
-      <label for="state">State:</label>
-      <input type="text" class="form-control" id="state" name="state" required>
-    </div>
-    <div class="form-group">
-      <label for="picture">Picture:</label>
-      <input type="file" class="form-control" id="picture" name="picture" required>
-    </div>
-    <div class="form-group">
-      <label for="established">Established Date:</label>
-      <input type="date" class="form-control" id="established" name="established" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Create Park</button>
-  </form>
+<div class="park_container">
 
-  <h2 class="mt-5">National Parks List</h2>
-  <ul class="list-group">
+  <h2 class="mt-2 d-flex justify-content-between align-items-center">
+    National Parks List
+    <a href="{% url 'create_park_view' %}" class="btn btn-primary">
+      <h5> + Create National Park</h5>
+    </a>
+  </h2>
+  <ul class="list-group mt-5">
     {% for park in parks %}
     <li class="list-group-item">
       <h5>{{ park.name }}</h5>

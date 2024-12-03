@@ -27,7 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATIC_URL = '/static/'
 
+# If you're using custom folders or need to include directories:
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Ensure this is present if you're working with a 'static' folder in your project directory.
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -68,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },

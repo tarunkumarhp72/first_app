@@ -19,7 +19,7 @@ def create_park_view(request):
     else:
         form = NationalParkForm()
     
-    return render(request, 'store/create_park.html', {'form': form})
+    return render(request, 'store/upsertPark.html', {'form': form})
 
 
 # View for listing all parks
@@ -57,7 +57,7 @@ def delete_park_view(request, id):
 class TrailListView(View):
     def get(self, request):
         trails = Trail.objects.all()
-        return render(request, 'trails/trail_list.html', {'trails': trails})
+        return render(request, 'store/trail.html', {'trails': trails})
 
 class TrailCreateView(View):
     def get(self, request):

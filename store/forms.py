@@ -11,3 +11,7 @@ class TrailForm(forms.ModelForm):
     class Meta:
         model = Trail
         fields = ['name', 'distance', 'elevation', 'difficultyType', 'nationalPark']
+        widgets = {
+            'difficultyType': forms.Select(),
+            'nationalPark': forms.Select(),
+        }

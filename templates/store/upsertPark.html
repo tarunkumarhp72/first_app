@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="upsertPark_container">
+
+  <div class="mt-2 justify-content-between align-items-center">
+    <h2>Create National Park</h2>
+    <div class="mt-5">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Park Name:</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="state">State:</label>
+          <input type="text" class="form-control" id="state" name="state" required>
+        </div>
+        <div class="form-group">
+          <label for="picture">Picture:</label>
+          <input type="file" class="form-control" id="picture" name="picture" required>
+        </div>
+        <div class="form-group">
+          <label for="established">Established Date:</label>
+          <input type="date" class="form-control" id="established" name="established" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Park</button>
+      </form>
+    </div>
+  </div>
+
+  {% endblock %}
