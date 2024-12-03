@@ -15,11 +15,11 @@ def create_park_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'National Park created successfully!')
-            return redirect('list_parks_view')  # Redirect to the park list view after saving
+            return redirect('list_parks_view') 
     else:
         form = NationalParkForm()
     
-    return render(request, 'store/upsertPark.html', {'form': form})
+    return render(request, 'store/createPark.html', {'form': form})
 
 
 # View for listing all parks
@@ -40,7 +40,7 @@ def edit_park_view(request, id):
     else:
         form = NationalParkForm(instance=park)
     
-    return render(request, 'store/edit_park.html', {'form': form, 'park': park})
+    return render(request, 'store/editPark.html', {'form': form, 'park': park})
 
 
 
