@@ -29,11 +29,8 @@ def register_view(request):
     return render(request, 'auth/register.html', {'form': form})
 
 def login_view(request):  
-    error_message = ""  
-    
     if request.method == 'POST':  
         form = AuthenticationForm(request, data=request.POST)  
-        
         if form.is_valid():  
             username = form.cleaned_data.get('username')  
             password = form.cleaned_data.get('password')  
@@ -43,16 +40,12 @@ def login_view(request):
                 login(request, user)  
                 return redirect('dashboard')    
             else:  
-                error_message = "Invalid username or password."  
-                messages.error(request, error_message) 
+                messages.error(request, 'Invalid credentials. Please try again.')
         else:  
-            error_message = "Invalid form submission." 
-            messages.error(request, error_message)    
-    
+            messages.error(request, 'Invalid credentials. Please try again.')
     else:  
-        form = AuthenticationForm()  # Initialize form for GET request  
-
-    return render(request, 'auth/login.html', {'form': form, 'error_message': error_message})  
+        form = AuthenticationForm()   
+    return render(request, 'auth/login.html', {'form': form})  
 
 
 def dashboard_view(request):

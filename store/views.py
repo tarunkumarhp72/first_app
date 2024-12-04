@@ -4,22 +4,30 @@ from .forms import NationalParkForm,TrailForm
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.views import View
+from django.http import JsonResponse
 # Create your views here.
 def dashboard_view(request):
     return render(request, 'dashboard.html')
   
   
-def create_park_view(request):
+
+def create_or_edit_park_view(request, id=None):
+    # Handles both create and edit cases
+    park = None if id is None else get_object_or_404(NationalPark, id=id)
+    
     if request.method == 'POST':
-        form = NationalParkForm(request.POST, request.FILES)
+        form = NationalParkForm(request.POST, request.FILES, instance=park)
         if form.is_valid():
             form.save()
-            messages.success(request, 'National Park created successfully!')
-            return redirect('list_parks_view') 
+            if park:
+                messages.success(request, 'National Park updated successfully!')
+            else:
+                messages.success(request, 'National Park created successfully!')
+            return redirect('list_parks_view')
     else:
-        form = NationalParkForm()
+        form = NationalParkForm(instance=park)
     
-    return render(request, 'store/createPark.html', {'form': form})
+    return render(request, 'store/park_modal.html', {'form': form, 'park': park})
 
 
 # View for listing all parks
@@ -28,30 +36,11 @@ def list_parks_view(request):
     return render(request, 'store/park.html', {'parks': parks})
   
   
-
-def edit_park_view(request, id):
-    park = get_object_or_404(NationalPark, id=id)
-    if request.method == 'POST':
-        form = NationalParkForm(request.POST, request.FILES, instance=park)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'National Park updated successfully!')
-            return redirect('list_parks_view')
-    else:
-        form = NationalParkForm(instance=park)
-    
-    return render(request, 'store/editPark.html', {'form': form, 'park': park})
-
-
-
 def delete_park_view(request, id):
     park = get_object_or_404(NationalPark, id=id)
-    if request.method == 'POST':
-        park.delete()
-        messages.success(request, 'National Park deleted successfully!')
-        return redirect('list_parks_view')
-
-    return render(request, 'store/confirm_delete.html', {'park': park})
+    park.delete()  
+    messages.success(request, 'National Park deleted successfully!')
+    return redirect('list_parks_view') 
 
 # Trail Views
 class TrailListView(View):
