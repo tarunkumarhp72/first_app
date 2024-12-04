@@ -9,10 +9,8 @@ from django.http import JsonResponse
 def dashboard_view(request):
     return render(request, 'dashboard.html')
   
-  
-
+  # Handles both create and edit cases
 def create_or_edit_park_view(request, id=None):
-    # Handles both create and edit cases
     park = None if id is None else get_object_or_404(NationalPark, id=id)
     
     if request.method == 'POST':
